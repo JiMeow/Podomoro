@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [time, setTime] = useState<number>(15);
+  const [time, setTime] = useState<number>(3);
   const [remainingTime, setRemainingTime] = useState<number>(time);
   const [tomatoes, setTomatoes] = useState<number>(0);
   const [playCount, setPlayCount] = useState<number>(0);
@@ -52,7 +52,7 @@ export default function Home() {
             Pomodoro Timer
           </h1>
           {remainingTime > 0 ? (
-            <p className="mt-2 w-fit rounded-md border-2 border-black px-6 text-center text-2xl drop-shadow-[1px_1px_rgba(0,0,0,0.8)]">
+            <p className="mt-4 w-fit rounded-md border-2 border-black px-6 py-1 text-center text-2xl drop-shadow-[1px_1px_rgba(0,0,0,0.8)]">
               {Math.floor(remainingTime / 60)}:
               {remainingTime % 60 < 10
                 ? `0${remainingTime % 60}`
@@ -60,7 +60,7 @@ export default function Home() {
             </p>
           ) : (
             <button
-              className="mt-4 w-fit rounded-md border-2 border-black px-4 py-1 text-center text-xl font-bold text-[#ff7474] drop-shadow-[1px_1px_rgba(0,0,0,0.8)]
+              className="mt-4 w-fit rounded-md border-2 border-black px-4 py-1 text-center text-2xl font-bold text-[#ff7474] drop-shadow-[1px_1px_rgba(0,0,0,0.8)]
             transition-all duration-300 ease-in-out hover:bg-[#ff7474] hover:text-white active:scale-95"
               onClick={collectReward}
             >
