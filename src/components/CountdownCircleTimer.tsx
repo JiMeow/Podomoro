@@ -14,8 +14,8 @@ const CountdownCircleTimerComponent = ({
       size={300}
       strokeWidth={30}
       duration={duration}
-      colors={["#FF8080", "#ff8635", "#ffb17d"]}
-      colorsTime={[7, 3, 0]}
+      colors={["#ff8635", "#FF8080"]}
+      colorsTime={[duration, 0]}
       isSmoothColorTransition
       isGrowing
       isPlaying
