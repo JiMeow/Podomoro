@@ -1,11 +1,13 @@
+import CountdownCircleTimerComponent from "@/components/CountdownCircleTimer";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 export default function Home() {
-  const [remainingTime, setRemainingTime] = useState(10);
+  const [time, setTime] = useState<number>(15);
+  const [remainingTime, setRemainingTime] = useState<number>(time);
   const [tomatoes, setTomatoes] = useState<number>(0);
+  const [playCount, setPlayCount] = useState<number>(0);
 
   useEffect(() => {
     const nowTomatoes = localStorage.getItem("tomatoes");
@@ -22,11 +24,12 @@ export default function Home() {
   }, [remainingTime]);
 
   const collectReward = () => {
-    setRemainingTime(1500);
+    setPlayCount((prev) => prev + 1);
+    setRemainingTime(time);
+    setTomatoes((prev) => prev + 1);
     const nowTomatoes = localStorage.getItem("tomatoes");
     const tomatoes = nowTomatoes ? parseInt(nowTomatoes) : 0;
     localStorage.setItem("tomatoes", (tomatoes + 1).toString());
-    setTomatoes((prev) => prev + 1);
   };
 
   return (
@@ -36,7 +39,14 @@ export default function Home() {
         <link rel="apple-touch-icon" href="/icon.ico"></link>
         <meta property="og:image" content="/icon.ico" />
       </Head>
-      <div className="flex min-h-[100dvh] w-full flex-col items-center justify-center gap-8 border-2 border-black bg-[#FFCF96] text-[#FF8080]">
+      <div className="relative flex min-h-[100dvh] w-full flex-col items-center justify-center gap-8 border-2 border-black bg-[#FFCF96] text-[#FF8080]">
+        <Image
+          src="/setting.png"
+          width={48}
+          height={48}
+          alt="settings"
+          className="absolute right-4 top-4"
+        />
         <div className="flex w-full flex-col items-center">
           <h1 className="text-center text-4xl font-bold drop-shadow-[1px_1px_rgba(0,0,0,0.8)]">
             Pomodoro Timer
@@ -58,29 +68,7 @@ export default function Home() {
             </button>
           )}
         </div>
-        <CountdownCircleTimer
-          size={300}
-          strokeWidth={30}
-          duration={1500}
-          colors={["#FF8080", "#ff8635", "#ffb17d"]}
-          colorsTime={[7, 3, 0]}
-          isSmoothColorTransition
-          isGrowing
-          isPlaying
-          trailColor="#F6FDC3"
-        >
-          {() => (
-            <div className="flex items-center justify-center">
-              <Image
-                src="/tomato.png"
-                alt="tomatoes"
-                width={360}
-                height={360}
-                className="h-[66%] w-[66%] object-contain"
-              />
-            </div>
-          )}
-        </CountdownCircleTimer>
+        <CountdownCircleTimerComponent key={playCount} duration={time} />
         {tomatoes !== 0 && (
           <div className="flex w-[66vw] flex-wrap items-center justify-center">
             <b className="mr-2 text-center text-2xl drop-shadow-[1px_1px_rgba(0,0,0,0.8)]">
@@ -94,7 +82,7 @@ export default function Home() {
                 height={32}
                 alt="tomatoes"
                 className="object-contain"
-              ></Image>
+              />
             ))}
           </div>
         )}
