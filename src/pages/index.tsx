@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [time, setTime] = useState<number>(3);
+  const time = 30;
   const [remainingTime, setRemainingTime] = useState<number>(time);
   const [tomatoes, setTomatoes] = useState<number>(0);
   const [playCount, setPlayCount] = useState<number>(0);
